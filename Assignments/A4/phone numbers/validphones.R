@@ -13,22 +13,14 @@ code <- '301'
 # add code to the phone numbers and create valid column
 numbers <- numbers %>%
     mutate(`Phone number` = paste(`code`,as.character(`Phone number`), sep ="")) %>%
-    mutate(valid = FALSE, `line type` = "")
+    mutate(valid = FALSE, location = "", carrier ="", line_type = "")
 
-
-# use API to verify each number
-
-base.url <- "http://apilayer.net/api/validate"
-key <- "37a7b1a312614a24b1a2b73b0bc67a25"
-phone.no <- "3016920338"
-
-valid <- GET(url = paste(base.url,"?access_key=",key,"&number=",phone.no,"&country_code=US&format=1", sep=""))
 
 
 # create validtest function
 valid.test <- function(phone.no){
     base.url <- "http://apilayer.net/api/validate"
-    key <- "37a7b1a312614a24b1a2b73b0bc67a25"
+    key <- "e08a4d253c965038ecb004941c992507"
     info <- GET(url = paste(base.url,"?access_key=",key,"&number=",phone.no,"&country_code=US&format=1", sep=""))
     info_content <- content(info)
     return(info_content)
@@ -40,8 +32,14 @@ valid.test <- function(phone.no){
 for (i in seq_along(numbers$`Phone number`)) {
     API.info <- valid.test(numbers$`Phone number`[i])
     numbers$valid[i] <- API.info$valid
+    if (length(API.info$location) > 0 ){
+        numbers$location[i] <- API.info$location
+    }
+    if (length(API.info$carrier) > 0 ){
+        numbers$carrier[i] <- API.info$carrier
+    }
     if (length(API.info$line_type) > 0 ){
-    numbers$`line type`[i] <- API.info$line_type
+    numbers$line_type[i] <- API.info$line_type
     }
 }
 
