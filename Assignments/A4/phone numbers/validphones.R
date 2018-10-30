@@ -44,4 +44,4 @@ for (i in seq_along(numbers$`Phone number`)) {
 }
 
 # save the data as csv. You can opt to save as xlsx using the xlsx library
-write_excel_csv(numbers, "ValidatedPhones.csv")
+write_excel_csv(numbers, "ValidatedPhones2.csv")
