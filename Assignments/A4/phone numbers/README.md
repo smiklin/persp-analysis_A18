@@ -1,9 +1,5 @@
----
-title: "Phone number validation
-author: "Sanja Miklin"
-date: "10/28/2018"
-output: html_document
----
+## Phone number validation
+
 
 You can find the R code [here](/validphones.R).
 To use it, you need to register at the [numverify website](https://numverify.com/dashboard), and add your own API into the code under 'key'.
